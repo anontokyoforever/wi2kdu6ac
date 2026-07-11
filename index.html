@@ -23,7 +23,6 @@
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-sm: 10px;
-            /* 暗色模式变量（默认未激活，由媒体查询覆盖） */
             --bg-overlay-gradient: linear-gradient(160deg,
                     rgba(255, 228, 235, 0.5) 0%,
                     rgba(245, 220, 240, 0.45) 25%,
@@ -81,7 +80,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* 背景叠加层：提供彩色渐变氛围与轻微模糊 */
         body::before {
             content: '';
             position: fixed;
@@ -96,10 +94,8 @@
                 var(--bg-radial-4);
             backdrop-filter: blur(1px);
             -webkit-backdrop-filter: blur(1px);
-            /* Safari支持 */
         }
 
-        /* 樱花飘落画布 */
         #sakura-canvas {
             position: fixed;
             top: 0;
@@ -111,7 +107,6 @@
             opacity: 0.85;
         }
 
-        /* 主容器 */
         .main-container {
             position: relative;
             z-index: 2;
@@ -123,7 +118,6 @@
             padding: 10px;
         }
 
-        /* ---- 标题区域 ---- */
         .hero-section {
             text-align: center;
             padding: 18px 10px 8px;
@@ -226,7 +220,6 @@
             }
         }
 
-        /* ---- 卡片通用样式 ---- */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius-lg);
@@ -260,7 +253,6 @@
             background: var(--card-hover-bg);
         }
 
-        /* 减少动画偏好 */
         @media (prefers-reduced-motion: reduce) {
             .card,
             .bangumi-link,
@@ -390,7 +382,6 @@
             box-shadow: 0 4px 16px rgba(180, 140, 160, 0.2);
             position: relative;
             overflow: hidden;
-            /* 提升触摸区域，增强移动端可访问性 */
             min-height: 48px;
             cursor: pointer;
         }
@@ -416,7 +407,6 @@
             transform: scale(0.97);
             transition: all 0.15s;
         }
-        /* 键盘焦点指示器 */
         .bangumi-link:focus-visible {
             outline: 2px solid var(--sakura-deep);
             outline-offset: 3px;
@@ -479,7 +469,6 @@
             font-weight: 900;
         }
 
-        /* 响应式 */
         @media (max-width: 600px) {
             .main-container {
                 gap: 16px;
@@ -551,7 +540,6 @@
             }
         }
 
-        /* 暗色模式适配 */
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-overlay-gradient: linear-gradient(160deg,
@@ -585,10 +573,7 @@
             }
 
             body {
-                /* 暗色模式下保持相同背景图，叠加暗色渐变层 */
-                /* 若需替换为暗色专用背景图，可在此覆盖 */
                 background-color: #2a1a24;
-                /* 图片加载失败时的暗色兜底 */
             }
 
             body::before {
@@ -625,7 +610,6 @@
     <canvas id="sakura-canvas" aria-hidden="true"></canvas>
 
     <main class="main-container">
-        <!-- 标题区域 -->
         <section class="hero-section" aria-label="页面标题">
             <div class="hero-decor">
                 <div class="title-glow" aria-hidden="true"></div>
@@ -639,13 +623,11 @@
             </div>
         </section>
 
-        <!-- 名言卡片 -->
         <div class="card quote-card">
             <div class="quote-icon" aria-hidden="true">✦</div>
             <p class="quote-text">果然还是喜欢没有人受伤或离去的故事呢</p>
         </div>
 
-        <!-- 关于卡片 -->
         <div class="card about-card">
             <p>
                 人生就是看动画
@@ -655,7 +637,6 @@
             </p>
         </div>
 
-        <!-- 链接卡片 -->
         <div class="card link-card">
             <p class="link-label">访问我的Bangumi追番记录</p>
             <a href="https://bangumi.tv/user/anontokyo"
@@ -669,7 +650,6 @@
         </a>
     </div>
 
-    <!-- 页脚 -->
     <footer class="footer-card">
         <span class="footer-decor" aria-hidden="true">🌸</span>&copy;<span id="year"></span>&nbsp;<span id="domain">07210000.xyz</span><span class="footer-decor" aria-hidden="true">🌸</span>
     </footer>
@@ -677,13 +657,11 @@
 
 <script>
     (function() {
-        // 动态年份
         const yearEl = document.getElementById('year');
         if (yearEl) {
             yearEl.textContent = new Date().getFullYear();
         }
 
-        // 樱花画布
         const canvas = document.getElementById('sakura-canvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
@@ -691,7 +669,6 @@
         const petals = [];
         const maxPetals = 55;
 
-        // 优先使用CSS变量中定义的颜色，但Canvas无法读取CSS变量，故保留硬编码
         const petalColors = [
             'rgba(255, 183, 197, 0.8)', 'rgba(255, 200, 210, 0.75)',
             'rgba(255, 170, 188, 0.78)', 'rgba(255, 190, 200, 0.72)',
@@ -699,7 +676,6 @@
             'rgba(250, 185, 195, 0.74)', 'rgba(255, 195, 205, 0.77)'
         ];
 
-        /** 更新画布尺寸 */
         function resize() {
             width = window.innerWidth;
             height = window.innerHeight;
@@ -707,7 +683,6 @@
             canvas.height = height;
         }
 
-        /** 单个樱花花瓣 */
         class SakuraPetal {
             constructor(randomY = true) {
                 this.reset(randomY);
@@ -737,7 +712,6 @@
                 this.x += this.speedX + Math.sin(this.time * this.waveFreq + this.waveOffset) * this.waveAmp;
                 this.rotation += this.rotationSpeed;
 
-                // 边界回收
                 if (this.y > height + 40 || this.x < -60 || this.x > width + 60) {
                     this.reset(false);
                     this.y = -30 - Math.random() * 50;
@@ -757,7 +731,6 @@
                 const w = s * 0.55;
                 const h = s;
 
-                // 绘制花瓣形状
                 ctx.beginPath();
                 ctx.moveTo(0, -h * 0.45);
                 ctx.bezierCurveTo(w * 0.9, -h * 0.25, w * 0.95, h * 0.15, w * 0.35, h * 0.45);
@@ -766,7 +739,6 @@
                 ctx.bezierCurveTo(-w * 0.9, -h * 0.25, 0, -h * 0.45, 0, -h * 0.45);
                 ctx.closePath();
 
-                // 渐变填充
                 const grad = ctx.createRadialGradient(0, -h * 0.05, s * 0.05, 0, h * 0.1, s * 0.75);
                 grad.addColorStop(0, this.color.replace(/[\d.]+\)$/, '0.95)'));
                 grad.addColorStop(0.5, this.color);
@@ -774,7 +746,6 @@
                 ctx.fillStyle = grad;
                 ctx.fill();
 
-                // 花瓣纹路
                 ctx.strokeStyle = this.color.replace(/[\d.]+\)$/, '0.45)');
                 ctx.lineWidth = 0.4;
                 ctx.beginPath();
@@ -782,7 +753,6 @@
                 ctx.lineTo(0, h * 0.25);
                 ctx.stroke();
 
-                // 高光点
                 ctx.fillStyle = 'rgba(255,255,255,0.35)';
                 ctx.beginPath();
                 ctx.arc(-w * 0.2, -h * 0.1, s * 0.12, 0, Math.PI * 2);
@@ -792,7 +762,6 @@
             }
         }
 
-        /** 初始化花瓣数组 */
         function initPetals() {
             petals.length = 0;
             for (let i = 0; i < maxPetals; i++) {
@@ -800,7 +769,6 @@
             }
         }
 
-        /** 动画循环 */
         function animate() {
             ctx.clearRect(0, 0, width, height);
             for (let i = 0; i < petals.length; i++) {
@@ -810,12 +778,10 @@
             requestAnimationFrame(animate);
         }
 
-        // 初始化
         resize();
         initPetals();
         animate();
 
-        // 窗口大小变化时重新调整画布
         window.addEventListener('resize', resize);
     })();
 </script>
