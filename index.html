@@ -4,102 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>anon的个人主页</title>
+    <meta name="description" content="anon的个人主页 - 人生就是看动画、旅行、读书，做点快乐的事情">
     <style>
         :root {
-            --sakura-pink: #ffb7c5;
-            --sakura-deep: #f08a9e;
-            --sakura-light: #ffe0e6;
-            --purple-soft: #c9a0dc;
-            --purple-deep: #9b7ebd;
-            --sky-blue: #b8d4e3;
-            --golden: #f0d78c;
-            --white-trans: rgba(255, 255, 255, 0.75);
-            --white-card: rgba(255, 255, 255, 0.55);
-            --text-dark: #3d2c3a;
-            --text-medium: #bc8eb0;
-            --shadow-soft: 0 8px 32px rgba(180, 140, 160, 0.2);
-            --shadow-card: 0 4px 24px rgba(160, 120, 150, 0.18);
-            --border-glow: rgba(255, 183, 197, 0.5);
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            --radius-sm: 10px;
-            --bg-overlay-gradient: linear-gradient(160deg,
-                    rgba(255, 228, 235, 0.5) 0%,
-                    rgba(245, 220, 240, 0.45) 25%,
-                    rgba(235, 225, 248, 0.45) 50%,
-                    rgba(220, 235, 250, 0.4) 75%,
-                    rgba(255, 240, 235, 0.45) 100%);
-            --bg-radial-1: radial-gradient(ellipse at 20% 20%, rgba(255, 220, 235, 0.35) 0%, transparent 50%);
-            --bg-radial-2: radial-gradient(ellipse at 80% 70%, rgba(220, 210, 245, 0.3) 0%, transparent 50%);
-            --bg-radial-3: radial-gradient(ellipse at 50% 40%, rgba(255, 245, 235, 0.25) 0%, transparent 60%);
-            --bg-radial-4: radial-gradient(ellipse at 30% 75%, rgba(200, 220, 240, 0.3) 0%, transparent 50%);
+            /* basic color */
+            --color-primary: #ffb7c5;
+            --color-primary-deep: #f08a9e;
+            --color-secondary: #c9a0dc;
+            --color-accent: #f0d78c;
+            
+            /* light mode */
+            --bg-body: #fce4ec;
+            --text-heading: #4a3045;
+            --text-body: #3d2c3a;
+            --text-muted: #bc8eb0;
+            --text-footer: #8a7a84;
+            
+            /* component colors */
             --card-bg: rgba(255, 255, 255, 0.55);
             --card-border: rgba(255, 255, 255, 0.6);
             --card-hover-bg: rgba(255, 255, 255, 0.62);
             --card-hover-border: rgba(255, 200, 215, 0.7);
-            --card-shine: linear-gradient(90deg,
-                    transparent,
-                    rgba(255, 200, 215, 0.7) 20%,
-                    rgba(255, 180, 200, 0.9) 50%,
-                    rgba(255, 200, 215, 0.7) 80%,
-                    transparent);
-            --title-color: #4a3045;
-            --quote-color: #3d2c3a;
-            --about-color: #bc8eb0;
-            --bangumi-bg: linear-gradient(135deg, #f8e1e8, #f0d8e4);
-            --bangumi-color: #5a3a48;
-            --bangumi-border: rgba(210, 150, 170, 0.45);
-            --footer-bg: rgba(255, 255, 255, 0.4);
-            --footer-color: #8a7a84;
+            --btn-bg: linear-gradient(135deg, #f8e1e8, #f0d8e4);
+            --btn-text: #5a3a48;
+            --btn-border: rgba(210, 150, 170, 0.45);
+            --btn-icon-bg: linear-gradient(135deg, #f8c8d6, #e8b8c8);
+            
+            /* decorations effects */
+            --shadow-card: 0 4px 24px rgba(160, 120, 150, 0.18);
+            --shadow-card-hover: 0 10px 36px rgba(180, 130, 160, 0.28);
+            --glow-title: radial-gradient(ellipse, rgba(255, 210, 225, 0.5) 0%, transparent 70%);
+            --highlight-bg: linear-gradient(180deg, transparent 60%, rgba(255, 200, 215, 0.45) 60%);
+            
+            /* layout, sizing */
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-pill: 50px;
+            --space-container: 22px;
+            --space-card-inner: 22px 28px;
+            
+            /* background compositing layer */
+            --bg-overlay: linear-gradient(160deg,
+                rgba(255, 228, 235, 0.5) 0%,
+                rgba(245, 220, 240, 0.45) 25%,
+                rgba(235, 225, 248, 0.45) 50%,
+                rgba(220, 235, 250, 0.4) 75%,
+                rgba(255, 240, 235, 0.45) 100%);
+            --bg-radials: 
+                radial-gradient(ellipse at 20% 20%, rgba(255, 220, 235, 0.35) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(220, 210, 245, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 40%, rgba(255, 245, 235, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 75%, rgba(200, 220, 240, 0.3) 0%, transparent 50%);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* dark mode overrides */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-body: #2a1a24;
+                --text-heading: #f0dde5;
+                --text-body: #d8ccd4;
+                --text-muted: #d8ccd4;
+                --text-footer: #b0a0a8;
+                
+                --card-bg: rgba(30, 22, 28, 0.55);
+                --card-border: rgba(255, 255, 255, 0.1);
+                --card-hover-bg: rgba(35, 26, 32, 0.62);
+                --card-hover-border: rgba(220, 170, 190, 0.35);
+                --btn-bg: linear-gradient(135deg, #3a2530, #30202a);
+                --btn-text: #e8d4dc;
+                --btn-border: rgba(180, 140, 155, 0.35);
+                --btn-icon-bg: linear-gradient(135deg, #f0a8ba, #d890a5);
+                
+                --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.2);
+                --shadow-card-hover: 0 10px 36px rgba(180, 130, 160, 0.28);
+                --glow-title: radial-gradient(ellipse, rgba(200, 150, 170, 0.25) 0%, transparent 70%);
+                --highlight-bg: linear-gradient(180deg, transparent 60%, rgba(200, 150, 170, 0.3) 60%);
+                
+                --bg-overlay: linear-gradient(160deg,
+                    rgba(40, 25, 35, 0.5) 0%,
+                    rgba(35, 25, 40, 0.45) 25%,
+                    rgba(30, 28, 42, 0.45) 50%,
+                    rgba(25, 30, 38, 0.4) 75%,
+                    rgba(35, 25, 32, 0.45) 100%);
+                --bg-radials: 
+                    radial-gradient(ellipse at 20% 20%, rgba(180, 130, 150, 0.25) 0%, transparent 50%),
+                    radial-gradient(ellipse at 80% 70%, rgba(140, 130, 170, 0.25) 0%, transparent 50%),
+                    radial-gradient(ellipse at 50% 40%, rgba(160, 140, 150, 0.2) 0%, transparent 60%),
+                    radial-gradient(ellipse at 30% 75%, rgba(130, 140, 160, 0.2) 0%, transparent 50%);
+            }
         }
 
-        html {
-            scroll-behavior: smooth;
-            height: 100%;
-        }
-
+        /* base styles */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; height: 100%; }
+        
         body {
             min-height: 100%;
-            font-family: 'Noto Serif SC', 'Noto Sans SC', 'Source Han Serif CN', 'STSong', 'SimSun',
-                'Hiragino Mincho Pro', 'YuMincho', 'MS PMincho', serif;
+            font-family: 'Noto Serif SC', 'Source Han Serif CN', serif;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow-x: hidden;
-            background: url('examples/background.jpg') center/cover no-repeat, #fce4ec;
+            background: url('examples/background.jpg') center/cover no-repeat, var(--bg-body);
             background-attachment: fixed;
             padding: 20px;
+            color: var(--text-body);
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* background overlay */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            background:
-                var(--bg-overlay-gradient),
-                var(--bg-radial-1),
-                var(--bg-radial-2),
-                var(--bg-radial-3),
-                var(--bg-radial-4);
+            background: var(--bg-overlay), var(--bg-radials);
             backdrop-filter: blur(1px);
             -webkit-backdrop-filter: blur(1px);
         }
 
+        /* canvas */
         #sakura-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
@@ -107,6 +137,7 @@
             opacity: 0.85;
         }
 
+        /* layout */
         .main-container {
             position: relative;
             z-index: 2;
@@ -114,24 +145,51 @@
             max-width: 680px;
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: var(--space-container);
             padding: 10px;
         }
 
-        .hero-section {
-            text-align: center;
-            padding: 18px 10px 8px;
+        /* card */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-card-inner);
+            box-shadow: var(--shadow-card);
+            border: 1.5px solid var(--card-border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
             position: relative;
+            overflow: hidden;
+            text-align: center;
         }
 
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, var(--color-primary) 50%, transparent);
+            opacity: 0.7;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-card-hover);
+            border-color: var(--card-hover-border);
+            transform: translateY(-3px);
+            background: var(--card-hover-bg);
+        }
+
+        /* hero area */
+        .hero-section { padding: 18px 10px 8px; position: relative; text-align: center; }
+        
         .hero-decor {
             display: inline-block;
             position: relative;
             padding: 8px 28px;
         }
 
-        .hero-decor::before,
-        .hero-decor::after {
+        .hero-decor::before, .hero-decor::after {
             content: '🌸';
             position: absolute;
             top: 50%;
@@ -140,250 +198,116 @@
             animation: floatPetal 3s ease-in-out infinite;
             opacity: 0.8;
         }
-        .hero-decor::before {
-            left: -8px;
-            animation-delay: 0s;
-        }
-        .hero-decor::after {
-            right: -8px;
-            animation-delay: 1.5s;
-        }
-
-        @keyframes floatPetal {
-            0%,
-            100% {
-                transform: translateY(-50%) translateY(0px) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-50%) translateY(-8px) rotate(5deg);
-            }
-            50% {
-                transform: translateY(-50%) translateY(-3px) rotate(-3deg);
-            }
-            75% {
-                transform: translateY(-50%) translateY(-10px) rotate(2deg);
-            }
-        }
+        .hero-decor::before { left: -8px; }
+        .hero-decor::after { right: -8px; animation-delay: 1.5s; }
 
         .main-title {
             font-size: clamp(2.4rem, 5.5vw, 3.4rem);
             font-weight: 700;
             letter-spacing: 0.08em;
-            color: var(--title-color);
+            color: var(--text-heading);
             line-height: 1.6;
-            text-shadow: 0 1px 3px rgba(255, 200, 210, 0.5),
-                0 0 18px rgba(255, 190, 210, 0.35),
-                0 0 40px rgba(240, 180, 200, 0.2);
+            text-shadow: 0 1px 3px rgba(255, 200, 210, 0.5);
             position: relative;
             display: inline-block;
         }
 
-        .main-title ruby {
-            ruby-align: center;
-            ruby-position: over;
-        }
-        .main-title rt {
-            font-size: 0.38em;
-            font-weight: 400;
-            letter-spacing: 0.04em;
-            color: #c47a8f;
-            text-shadow: 0 0 6px rgba(255, 180, 200, 0.5);
-            font-family: 'Noto Serif SC', 'Hiragino Mincho Pro', 'YuMincho', serif;
-            transform: translateY(-0.15em);
-            display: ruby-text;
-            opacity: 0.9;
-        }
-
         .title-glow {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 130%;
-            height: 70%;
-            background: radial-gradient(ellipse, rgba(255, 210, 225, 0.5) 0%, transparent 70%);
+            width: 130%; height: 70%;
+            background: var(--glow-title);
             pointer-events: none;
             z-index: -1;
             border-radius: 50%;
             filter: blur(10px);
             animation: glowPulse 4s ease-in-out infinite;
         }
-        @keyframes glowPulse {
-            0%,
-            100% {
-                opacity: 0.7;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.12);
-            }
+
+        .main-title rt {
+            font-size: 0.38em;
+            font-weight: 400;
+            color: var(--color-primary-deep);
+            opacity: 0.9;
+            transform: translateY(-0.15em);
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 22px 28px;
-            box-shadow: var(--shadow-card);
-            border: 1.5px solid var(--card-border);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1.5px;
-            background: var(--card-shine);
-            border-radius: 2px;
-            opacity: 0.7;
-        }
-
-        .card:hover {
-            box-shadow: 0 10px 36px rgba(180, 130, 160, 0.28),
-                0 0 0 1px rgba(255, 190, 210, 0.35) inset;
-            border-color: var(--card-hover-border);
-            transform: translateY(-3px);
-            background: var(--card-hover-bg);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .card,
-            .bangumi-link,
-            .hero-decor::before,
-            .hero-decor::after,
-            .title-glow,
-            .quote-icon,
-            .about-separator,
-            .footer-decor {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            .card:hover {
-                transform: none;
-            }
-            .bangumi-link:hover {
-                transform: none;
-            }
-        }
-
-        .quote-card {
-            text-align: center;
+        /* quote text */
+        .quote-text {
             font-size: clamp(1.05rem, 2.2vw, 1.25rem);
-            color: var(--quote-color);
             line-height: 1.9;
             letter-spacing: 0.04em;
             font-style: italic;
-            position: relative;
-        }
-
-        .quote-icon {
-            display: inline-block;
-            font-size: 2.4rem;
-            color: var(--sakura-deep);
-            opacity: 0.5;
-            line-height: 1;
-            margin-bottom: 4px;
-            animation: gentleBounce 2.5s ease-in-out infinite;
-        }
-        @keyframes gentleBounce {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            30% {
-                transform: translateY(-7px);
-            }
-            60% {
-                transform: translateY(-2px);
-            }
-        }
-
-        .quote-text {
             position: relative;
             display: inline-block;
         }
         .quote-text::after {
             content: '';
             position: absolute;
-            bottom: -2px;
-            left: 10%;
-            width: 80%;
-            height: 1px;
+            bottom: -2px; left: 10%;
+            width: 80%; height: 1px;
             background: linear-gradient(90deg, transparent, rgba(200, 160, 180, 0.5), transparent);
-            border-radius: 50%;
+        }
+        .quote-icon {
+            display: inline-block;
+            font-size: 2.4rem;
+            font-style: italic;
+            color: var(--color-primary-deep);
+            opacity: 0.5;
+            animation: gentleBounce 2.5s ease-in-out infinite;
         }
 
-        .about-card {
-            text-align: center;
+        /* about */
+        .about-text {
             font-size: clamp(1rem, 2vw, 1.15rem);
-            color: var(--about-color);
+            color: var(--text-muted);
             line-height: 2;
             letter-spacing: 0.05em;
         }
-        .about-highlight {
+        .highlight {
             display: inline-block;
-            background: linear-gradient(180deg, transparent 60%, rgba(255, 200, 215, 0.45) 60%);
+            background: var(--highlight-bg);
             padding: 0 4px;
             border-radius: 2px;
-            transition: all 0.3s;
+            transition: background 0.3s;
         }
-        .about-highlight:hover {
-            background: linear-gradient(180deg, transparent 55%, rgba(255, 180, 200, 0.6) 55%);
-        }
-        .about-separator {
+        .highlight:hover { background: linear-gradient(180deg, transparent 55%, rgba(255, 180, 200, 0.6) 55%); }
+        
+        .separator {
             display: inline-block;
             margin: 0 6px;
-            color: var(--sakura-deep);
+            color: var(--color-primary-deep);
             opacity: 0.6;
             font-size: 0.7em;
             animation: gentleBounce 3s ease-in-out infinite;
-            animation-delay: 0.5s;
         }
-        .about-separator:nth-child(4) {
-            animation-delay: 1s;
-        }
-        .about-separator:nth-child(6) {
-            animation-delay: 1.5s;
-        }
+        .separator:nth-child(2) { animation-delay: 0.5s; }
+        .separator:nth-child(4) { animation-delay: 1s; }
+        .separator:nth-child(6) { animation-delay: 1.5s; }
 
-        .link-card {
-            text-align: center;
-            padding: 20px 28px;
-        }
+        /* botton, link */
         .link-label {
             font-size: 0.9rem;
-            color: var(--text-medium);
+            color: var(--text-muted);
             letter-spacing: 0.06em;
             margin-bottom: 10px;
             opacity: 0.8;
         }
-		.text-label {
-            font-size: clamp(1rem, 2vw, 1.15rem);
-            color: var(--about-color);
-            letter-spacing: 0.06em;
-            margin-bottom: 10px;
-        }
-        .bangumi-link {
+
+        .btn-primary {
             display: inline-flex;
             align-items: center;
             gap: 10px;
             padding: 13px 26px;
-            background: var(--bangumi-bg);
-            border-radius: 50px;
+            background: var(--btn-bg);
+            border-radius: var(--radius-pill);
             text-decoration: none;
-            color: var(--bangumi-color);
+            color: var(--btn-text);
             font-weight: 600;
             font-size: 1.05rem;
             letter-spacing: 0.05em;
-            border: 1.5px solid var(--bangumi-border);
+            border: 1.5px solid var(--btn-border);
             transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
             box-shadow: 0 4px 16px rgba(180, 140, 160, 0.2);
             position: relative;
@@ -391,38 +315,22 @@
             min-height: 48px;
             cursor: pointer;
         }
-        .bangumi-link::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 200, 220, 0.3));
-            opacity: 0;
-            transition: opacity 0.35s;
-            border-radius: 50px;
-        }
-        .bangumi-link:hover::before {
-            opacity: 1;
-        }
-        .bangumi-link:hover {
+
+        .btn-primary:hover {
             transform: translateY(-2px) scale(1.03);
             box-shadow: 0 8px 28px rgba(180, 130, 160, 0.35);
-            border-color: rgba(200, 130, 160, 0.65);
-            color: #3d2030;
+            border-color: var(--card-hover-border);
         }
-        .bangumi-link:active {
-            transform: scale(0.97);
-            transition: all 0.15s;
-        }
-        .bangumi-link:focus-visible {
-            outline: 2px solid var(--sakura-deep);
+        .btn-primary:active { transform: scale(0.97); transition: all 0.15s; }
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--color-primary-deep);
             outline-offset: 3px;
-            border-radius: 50px;
         }
-        .bangumi-icon {
-            width: 26px;
-            height: 26px;
+
+        .btn-icon {
+            width: 26px; height: 26px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f8c8d6, #e8b8c8);
+            background: var(--btn-icon-bg);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -432,32 +340,34 @@
             box-shadow: 0 2px 8px rgba(200, 150, 170, 0.4);
             transition: all 0.35s;
         }
-        .bangumi-link:hover .bangumi-icon {
-            background: linear-gradient(135deg, #f0a8ba, #d890a5);
+        .btn-primary:hover .btn-icon {
             box-shadow: 0 3px 12px rgba(200, 130, 160, 0.55);
         }
-        .bangumi-arrow {
+        .btn-arrow {
             transition: transform 0.35s;
             font-size: 0.85rem;
             opacity: 0.7;
         }
-        .bangumi-link:hover .bangumi-arrow {
-            transform: translateX(3px);
-            opacity: 1;
-        }
+        .btn-primary:hover .btn-arrow { transform: translateX(3px); opacity: 1; }
 
+        /* footer */
         .footer-card {
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
             padding: 16px 20px;
             font-size: 0.82rem;
-            color: var(--footer-color);
-            letter-spacing: 0.04em;
-            background: var(--footer-bg);
+            color: var(--text-footer);
+            background: rgba(255, 255, 255, 0.4);
             border-radius: var(--radius-md);
             border: 1px solid rgba(255, 255, 255, 0.45);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             line-height: 1.8;
+        }
+        @media (prefers-color-scheme: dark) {
+            .footer-card { background: rgba(25, 18, 22, 0.4); border-color: rgba(255,255,255,0.08); }
         }
         .footer-decor {
             display: inline-block;
@@ -466,149 +376,56 @@
             opacity: 0.6;
             animation: gentleBounce 3.5s ease-in-out infinite;
         }
+        #domain { font-weight: 900; }
 
-        #year {
-            color: #6b5060;
+        /* animations accessibility */
+        @keyframes floatPetal {
+            0%, 100% { transform: translateY(-50%) translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-50%) translateY(-8px) rotate(5deg); }
+            50% { transform: translateY(-50%) translateY(-3px) rotate(-3deg); }
+            75% { transform: translateY(-50%) translateY(-10px) rotate(2deg); }
+        }
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
+        }
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-7px); }
+            60% { transform: translateY(-2px); }
         }
 
-        #domain {
-            font-weight: 900;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .card:hover, .btn-primary:hover { transform: none; }
         }
 
+        /* responsive breakpoints */
         @media (max-width: 600px) {
-            .main-container {
-                gap: 16px;
-                padding: 5px;
-            }
-            .card {
-                padding: 16px 18px;
-                border-radius: var(--radius-md);
-            }
-            .hero-decor::before,
-            .hero-decor::after {
-                font-size: 1.2rem;
-            }
-            .hero-decor::before {
-                left: -2px;
-            }
-            .hero-decor::after {
-                right: -2px;
-            }
-            .main-title {
-                font-size: 2rem;
-            }
-            .main-title rt {
-                font-size: 0.35em;
-            }
-            .bangumi-link {
-                padding: 10px 20px;
-                font-size: 0.95rem;
-                gap: 6px;
-            }
-            .bangumi-icon {
-                width: 22px;
-                height: 22px;
-                font-size: 0.7rem;
-            }
-            .quote-card {
-                font-size: 0.95rem;
-                line-height: 1.75;
-            }
-            .about-card {
-                font-size: 0.9rem;
-                line-height: 1.8;
-            }
-            .footer-card {
-                font-size: 0.72rem;
-                padding: 12px 14px;
-            }
+            .main-container { gap: 16px; padding: 5px; }
+            .card { padding: 16px 18px; border-radius: var(--radius-md); }
+            .hero-decor::before, .hero-decor::after { font-size: 1.2rem; }
+            .hero-decor::before { left: -2px; }
+            .hero-decor::after { right: -2px; }
+            .main-title { font-size: 2rem; }
+            .main-title rt { font-size: 0.35em; }
+            .btn-primary { padding: 10px 20px; font-size: 0.95rem; gap: 6px; }
+            .btn-icon { width: 22px; height: 22px; font-size: 0.7rem; }
+            .quote-text { font-size: 0.95rem; line-height: 1.75; }
+            .about-text { font-size: 0.9rem; line-height: 1.8; }
+            .footer-card { font-size: 0.72rem; padding: 12px 14px; }
         }
 
         @media (max-width: 380px) {
-            .main-title {
-                font-size: 1.6rem;
-                letter-spacing: 0.04em;
-            }
-            .main-title rt {
-                font-size: 0.32em;
-            }
-            .card {
-                padding: 12px 14px;
-                border-radius: 14px;
-            }
-            .hero-decor::before,
-            .hero-decor::after {
-                display: none;
-            }
-            .bangumi-link {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-overlay-gradient: linear-gradient(160deg,
-                        rgba(40, 25, 35, 0.5) 0%,
-                        rgba(35, 25, 40, 0.45) 25%,
-                        rgba(30, 28, 42, 0.45) 50%,
-                        rgba(25, 30, 38, 0.4) 75%,
-                        rgba(35, 25, 32, 0.45) 100%);
-                --bg-radial-1: radial-gradient(ellipse at 20% 20%, rgba(180, 130, 150, 0.25) 0%, transparent 50%);
-                --bg-radial-2: radial-gradient(ellipse at 80% 70%, rgba(140, 130, 170, 0.25) 0%, transparent 50%);
-                --bg-radial-3: radial-gradient(ellipse at 50% 40%, rgba(160, 140, 150, 0.2) 0%, transparent 60%);
-                --bg-radial-4: radial-gradient(ellipse at 30% 75%, rgba(130, 140, 160, 0.2) 0%, transparent 50%);
-                --card-bg: rgba(30, 22, 28, 0.55);
-                --card-border: rgba(255, 255, 255, 0.1);
-                --card-hover-bg: rgba(35, 26, 32, 0.62);
-                --card-hover-border: rgba(220, 170, 190, 0.35);
-                --card-shine: linear-gradient(90deg,
-                        transparent,
-                        rgba(200, 150, 170, 0.4) 20%,
-                        rgba(210, 160, 180, 0.55) 50%,
-                        rgba(200, 150, 170, 0.4) 80%,
-                        transparent);
-                --title-color: #f0dde5;
-                --quote-color: #d8ccd4;
-                --about-color: #d8ccd4;
-                --bangumi-bg: linear-gradient(135deg, #3a2530, #30202a);
-                --bangumi-color: #e8d4dc;
-                --bangumi-border: rgba(180, 140, 155, 0.35);
-                --footer-bg: rgba(25, 18, 22, 0.4);
-                --footer-color: #b0a0a8;
-            }
-
-            body {
-                background-color: #2a1a24;
-            }
-
-            body::before {
-                backdrop-filter: blur(1.5px);
-                -webkit-backdrop-filter: blur(1.5px);
-            }
-
-            .main-title {
-                text-shadow: 0 1px 3px rgba(200, 150, 170, 0.4), 0 0 18px rgba(200, 150, 170, 0.25);
-            }
-            .main-title rt {
-                color: #d4a0b0;
-            }
-            .card:hover {
-                box-shadow: 0 10px 36px rgba(180, 130, 160, 0.28),
-                    0 0 0 1px rgba(220, 170, 190, 0.25) inset;
-            }
-            .bangumi-link:hover {
-                background: linear-gradient(135deg, #422a35, #38262f);
-                color: #f5e5ec;
-                box-shadow: 0 8px 28px rgba(180, 130, 160, 0.35);
-                border-color: rgba(200, 130, 160, 0.55);
-            }
-            .bangumi-link:focus-visible {
-                outline-color: #d4a0b0;
-            }
-            #year {
-                color: #c0a8b4;
-            }
+            .main-title { font-size: 1.6rem; letter-spacing: 0.04em; }
+            .main-title rt { font-size: 0.32em; }
+            .card { padding: 12px 14px; border-radius: 14px; }
+            .hero-decor::before, .hero-decor::after { display: none; }
+            .btn-primary { padding: 8px 16px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -620,181 +437,179 @@
             <div class="hero-decor">
                 <div class="title-glow" aria-hidden="true"></div>
                 <h1 class="main-title">
-                    <ruby>可<rt>か</rt></ruby>
-                    <ruby>愛<rt>わい</rt></ruby>
-                    <ruby>い</ruby>
-                    <ruby>最<rt>さい</rt></ruby>
-                    <ruby>高<rt>こう</rt></ruby>
+                    <ruby>可<rt>か</rt></ruby><ruby>愛<rt>わい</rt></ruby><ruby>い</ruby><ruby>最<rt>さい</rt></ruby><ruby>高<rt>こう</rt></ruby>
                 </h1>
             </div>
         </section>
 
-        <div class="card quote-card">
-            <div class="quote-icon" aria-hidden="true">✦</div>
+        <article class="card">
+            <span class="quote-icon" aria-hidden="true">✦</span>
             <p class="quote-text">果然还是喜欢没有人受伤或离去的故事呢</p>
-        </div>
+        </article>
 
-        <div class="card about-card">
-            <p>
+        <article class="card">
+            <p class="about-text">
                 人生就是看动画
-                <span class="about-separator" aria-hidden="true">🌸</span> 旅行
-                <span class="about-separator" aria-hidden="true">📖</span> 读书
-                <span class="about-separator" aria-hidden="true">✨</span> 做点<span class="about-highlight">快乐的事情</span>
+                <span class="separator" aria-hidden="true">🌸</span>旅行
+                <span class="separator" aria-hidden="true">📖</span>读书
+                <span class="separator" aria-hidden="true">✨</span>做点<span class="highlight">快乐的事情</span>
             </p>
-        </div>
+        </article>
 
-        <div class="card link-card">
+        <article class="card">
             <p class="link-label">访问我的Bangumi追番记录</p>
-            <a href="https://bangumi.tv/user/anontokyo"
-            class="bangumi-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="访问我的Bangumi主页（在新标签页中打开）">
-            <span class="bangumi-icon" aria-hidden="true">B</span>
-            <span>我的 Bangumi</span>
-            <span class="bangumi-arrow" aria-hidden="true">→</span>
-        </a>
-    </div>
+            <a href="https://bangumi.tv/user/anontokyo" 
+               class="btn-primary" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="访问我的Bangumi主页（在新标签页中打开）">
+                <span class="btn-icon" aria-hidden="true">B</span>
+                <span>我的 Bangumi</span>
+                <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+        </article>
 
-        <div class="card link-card">
-            <p class="text-label">网页其他部分施工中(≧◡≦)</p>
-        </a>
-    </div>
+        <article class="card">
+            <p class="about-text">网页其他部分施工中 (≧◡≦)</p>
+        </article>
 
-    <footer class="footer-card">
-        <span class="footer-decor" aria-hidden="true">🌸</span>&copy;<span id="year"></span>&nbsp;<span id="domain">07210000.xyz</span><span class="footer-decor" aria-hidden="true">🌸</span>
-    </footer>
-</main>
+        <footer class="footer-card">
+            <span class="footer-decor" aria-hidden="true">🌸</span>
+            &copy;<span id="year"></span>&nbsp;<span id="domain">07210000.xyz</span>
+            <span class="footer-decor" aria-hidden="true">🌸</span>
+        </footer>
+    </main>
 
-<script>
-    (function() {
-        const yearEl = document.getElementById('year');
-        if (yearEl) {
-            yearEl.textContent = new Date().getFullYear();
-        }
+    <script>
+        /*sakura canvas animation*/
+        (function() {
+            const yearEl = document.getElementById('year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-        const canvas = document.getElementById('sakura-canvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        const petals = [];
-        const maxPetals = 55;
+            const canvas = document.getElementById('sakura-canvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            const petals = [];
 
-        const petalColors = [
-            'rgba(255, 183, 197, 0.8)', 'rgba(255, 200, 210, 0.75)',
-            'rgba(255, 170, 188, 0.78)', 'rgba(255, 190, 200, 0.72)',
-            'rgba(255, 210, 220, 0.7)', 'rgba(255, 178, 192, 0.76)',
-            'rgba(250, 185, 195, 0.74)', 'rgba(255, 195, 205, 0.77)'
-        ];
+            const CONFIG = {
+                maxPetals: 55,
+                colors: [
+                    'rgba(255, 183, 197, 0.8)', 'rgba(255, 200, 210, 0.75)',
+                    'rgba(255, 170, 188, 0.78)', 'rgba(255, 190, 200, 0.72)',
+                    'rgba(255, 210, 220, 0.7)', 'rgba(255, 178, 192, 0.76)'
+                ],
+                sizeRange: [6, 20],      // [min, max]
+                speedYRange: [0.4, 2.0], // [min, max]
+                waveAmpRange: [0.3, 1.5]
+            };
 
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        }
-
-        class SakuraPetal {
-            constructor(randomY = true) {
-                this.reset(randomY);
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
             }
 
-            reset(randomY = true) {
-                this.x = Math.random() * width * 1.1 - width * 0.05;
-                this.y = randomY
-                    ? Math.random() * height * 1.1 - height * 0.05
-                    : -30 - Math.random() * 60;
-                this.size = 6 + Math.random() * 14;
-                this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
-                this.speedY = 0.4 + Math.random() * 1.6;
-                this.speedX = -0.3 + Math.random() * 0.6;
-                this.rotation = Math.random() * Math.PI * 2;
-                this.rotationSpeed = (Math.random() - 0.5) * 0.03;
-                this.waveAmp = 0.3 + Math.random() * 1.2;
-                this.waveFreq = 0.01 + Math.random() * 0.03;
-                this.waveOffset = Math.random() * Math.PI * 2;
-                this.opacityVar = 0.85 + Math.random() * 0.15;
-                this.time = Math.random() * 1000;
-            }
+            class SakuraPetal {
+                constructor(randomY = true) { this.reset(randomY); }
 
-            update() {
-                this.time += 1;
-                this.y += this.speedY;
-                this.x += this.speedX + Math.sin(this.time * this.waveFreq + this.waveOffset) * this.waveAmp;
-                this.rotation += this.rotationSpeed;
-
-                if (this.y > height + 40 || this.x < -60 || this.x > width + 60) {
-                    this.reset(false);
-                    this.y = -30 - Math.random() * 50;
+                reset(randomY = true) {
+                    this.x = Math.random() * width * 1.1 - width * 0.05;
+                    this.y = randomY ? Math.random() * height * 1.1 - height * 0.05 : -30 - Math.random() * 60;
+                    this.size = CONFIG.sizeRange[0] + Math.random() * (CONFIG.sizeRange[1] - CONFIG.sizeRange[0]);
+                    this.color = CONFIG.colors[Math.floor(Math.random() * CONFIG.colors.length)];
+                    this.speedY = CONFIG.speedYRange[0] + Math.random() * (CONFIG.speedYRange[1] - CONFIG.speedYRange[0]);
+                    this.speedX = -0.3 + Math.random() * 0.6;
+                    this.rotation = Math.random() * Math.PI * 2;
+                    this.rotationSpeed = (Math.random() - 0.5) * 0.03;
+                    this.waveAmp = CONFIG.waveAmpRange[0] + Math.random() * (CONFIG.waveAmpRange[1] - CONFIG.waveAmpRange[0]);
+                    this.waveFreq = 0.01 + Math.random() * 0.03;
+                    this.waveOffset = Math.random() * Math.PI * 2;
+                    this.opacityVar = 0.85 + Math.random() * 0.15;
+                    this.time = Math.random() * 1000;
                 }
-                if (this.y < -100 && this.speedY < 0) {
-                    this.y = height + 30;
+
+                update() {
+                    this.time += 1;
+                    this.y += this.speedY;
+                    this.x += this.speedX + Math.sin(this.time * this.waveFreq + this.waveOffset) * this.waveAmp;
+                    this.rotation += this.rotationSpeed;
+
+                    if (this.y > height + 40 || this.x < -60 || this.x > width + 60) {
+                        this.reset(false);
+                    }
+                }
+
+                draw(ctx) {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    ctx.globalAlpha = this.opacityVar;
+
+                    const s = this.size;
+                    const w = s * 0.55;
+                    const h = s;
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, -h * 0.45);
+                    ctx.bezierCurveTo(w * 0.9, -h * 0.25, w * 0.95, h * 0.15, w * 0.35, h * 0.45);
+                    ctx.bezierCurveTo(w * 0.15, h * 0.55, 0, h * 0.2, 0, -h * 0.45);
+                    ctx.bezierCurveTo(-w * 0.15, h * 0.55, -w * 0.35, h * 0.45, -w * 0.95, h * 0.15);
+                    ctx.bezierCurveTo(-w * 0.9, -h * 0.25, 0, -h * 0.45, 0, -h * 0.45);
+                    ctx.closePath();
+
+                    const grad = ctx.createRadialGradient(0, -h * 0.05, s * 0.05, 0, h * 0.1, s * 0.75);
+                    grad.addColorStop(0, this.color.replace(/[\d.]+\)$/, '0.95)'));
+                    grad.addColorStop(0.5, this.color);
+                    grad.addColorStop(1, this.color.replace(/[\d.]+\)$/, '0.35)'));
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+
+                    ctx.strokeStyle = this.color.replace(/[\d.]+\)$/, '0.45)');
+                    ctx.lineWidth = 0.4;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -h * 0.4);
+                    ctx.lineTo(0, h * 0.25);
+                    ctx.stroke();
+
+                    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+                    ctx.beginPath();
+                    ctx.arc(-w * 0.2, -h * 0.1, s * 0.12, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.restore();
                 }
             }
 
-            draw(ctx) {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation);
-                ctx.globalAlpha = this.opacityVar;
-
-                const s = this.size;
-                const w = s * 0.55;
-                const h = s;
-
-                ctx.beginPath();
-                ctx.moveTo(0, -h * 0.45);
-                ctx.bezierCurveTo(w * 0.9, -h * 0.25, w * 0.95, h * 0.15, w * 0.35, h * 0.45);
-                ctx.bezierCurveTo(w * 0.15, h * 0.55, 0, h * 0.2, 0, -h * 0.45);
-                ctx.bezierCurveTo(-w * 0.15, h * 0.55, -w * 0.35, h * 0.45, -w * 0.95, h * 0.15);
-                ctx.bezierCurveTo(-w * 0.9, -h * 0.25, 0, -h * 0.45, 0, -h * 0.45);
-                ctx.closePath();
-
-                const grad = ctx.createRadialGradient(0, -h * 0.05, s * 0.05, 0, h * 0.1, s * 0.75);
-                grad.addColorStop(0, this.color.replace(/[\d.]+\)$/, '0.95)'));
-                grad.addColorStop(0.5, this.color);
-                grad.addColorStop(1, this.color.replace(/[\d.]+\)$/, '0.35)'));
-                ctx.fillStyle = grad;
-                ctx.fill();
-
-                ctx.strokeStyle = this.color.replace(/[\d.]+\)$/, '0.45)');
-                ctx.lineWidth = 0.4;
-                ctx.beginPath();
-                ctx.moveTo(0, -h * 0.4);
-                ctx.lineTo(0, h * 0.25);
-                ctx.stroke();
-
-                ctx.fillStyle = 'rgba(255,255,255,0.35)';
-                ctx.beginPath();
-                ctx.arc(-w * 0.2, -h * 0.1, s * 0.12, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.restore();
+            function init() {
+                petals.length = 0;
+                for (let i = 0; i < CONFIG.maxPetals; i++) {
+                    petals.push(new SakuraPetal(true));
+                }
             }
-        }
 
-        function initPetals() {
-            petals.length = 0;
-            for (let i = 0; i < maxPetals; i++) {
-                petals.push(new SakuraPetal(true));
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (const petal of petals) {
+                    petal.update();
+                    petal.draw(ctx);
+                }
+                requestAnimationFrame(animate);
             }
-        }
 
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < petals.length; i++) {
-                petals[i].update();
-                petals[i].draw(ctx);
-            }
-            requestAnimationFrame(animate);
-        }
+            resize();
+            init();
+            animate();
 
-        resize();
-        initPetals();
-        animate();
-
-        window.addEventListener('resize', resize);
-    })();
-</script>
+            // debounce resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(resize, 100);
+            });
+        })();
+    </script>
 </body>
 </html>
