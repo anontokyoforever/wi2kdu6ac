@@ -15,10 +15,10 @@
             
             /* light mode */
             --bg-body: #fce4ec;
-            --text-heading: #4a3045;
-            --text-body: #3d2c3a;
-            --text-muted: #bc8eb0;
-            --text-footer: #8a7a84;
+            --text-heading: #a35392;
+            --text-body: #7b4972;
+            --text-muted: #c56d9f;
+            --text-footer: #c56d9f;
             
             /* component colors */
             --card-bg: rgba(255, 255, 255, 0.55);
@@ -26,7 +26,7 @@
             --card-hover-bg: rgba(255, 255, 255, 0.62);
             --card-hover-border: rgba(255, 200, 215, 0.7);
             --btn-bg: linear-gradient(135deg, #f8e1e8, #f0d8e4);
-            --btn-text: #5a3a48;
+            --btn-text: #925f75;
             --btn-border: rgba(210, 150, 170, 0.45);
             --btn-icon-bg: linear-gradient(135deg, #f8c8d6, #e8b8c8);
             
@@ -237,6 +237,7 @@
         .quote-text {
             font-size: clamp(1.05rem, 2.2vw, 1.25rem);
             line-height: 1.9;
+            color: var(--text-muted);
             letter-spacing: 0.04em;
             font-style: italic;
             position: relative;
@@ -376,7 +377,7 @@
             opacity: 0.6;
             animation: gentleBounce 3.5s ease-in-out infinite;
         }
-        #domain { font-weight: 900; }
+        #weight-font { font-weight: 900; }
 
         /* animations accessibility */
         @keyframes floatPetal {
@@ -475,7 +476,7 @@
 
         <footer class="footer-card">
             <span class="footer-decor" aria-hidden="true">🌸</span>
-            &copy;<span id="year"></span>&nbsp;<span id="domain">07210000.xyz</span>
+            <span id="weight-font">&copy;<span id="year"></span></span>&nbsp;<span id="domain">07210000.xyz</span>
             <span class="footer-decor" aria-hidden="true">🌸</span>
         </footer>
     </main>
