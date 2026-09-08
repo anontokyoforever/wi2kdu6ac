@@ -1,439 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>anon的个人主页</title>
     <meta name="description" content="anon的个人主页 - 人生就是看动画、旅行、读书，做点快乐的事情">
-    <style>
-        :root {
-            /* basic color */
-            --color-primary: #ffb7c5;
-            --color-primary-deep: #f08a9e;
-            --color-secondary: #c9a0dc;
-            --color-accent: #f0d78c;
-            
-            /* light mode */
-            --bg-body: #fce4ec;
-            --text-heading: #a35392;
-            --text-body: #7b4972;
-            --text-muted: #c56d9f;
-            --text-footer: #c56d9f;
-            
-            /* component colors */
-            --card-bg: rgba(255, 255, 255, 0.55);
-            --card-border: rgba(255, 255, 255, 0.6);
-            --card-hover-bg: rgba(255, 255, 255, 0.62);
-            --card-hover-border: rgba(255, 200, 215, 0.7);
-            --btn-bg: linear-gradient(135deg, #f8e1e8, #f0d8e4);
-            --btn-text: #925f75;
-            --btn-border: rgba(210, 150, 170, 0.45);
-            --btn-icon-bg: linear-gradient(135deg, #f8c8d6, #e8b8c8);
-            
-            /* decorations effects */
-            --shadow-card: 0 4px 24px rgba(160, 120, 150, 0.18);
-            --shadow-card-hover: 0 10px 36px rgba(180, 130, 160, 0.28);
-            --glow-title: radial-gradient(ellipse, rgba(255, 210, 225, 0.5) 0%, transparent 70%);
-            --highlight-bg: linear-gradient(180deg, transparent 60%, rgba(255, 200, 215, 0.45) 60%);
-            
-            /* layout, sizing */
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            --radius-pill: 50px;
-            --space-container: 22px;
-            --space-card-inner: 22px 28px;
-            
-            /* background compositing layer */
-            --bg-overlay: linear-gradient(160deg,
-                rgba(255, 228, 235, 0.5) 0%,
-                rgba(245, 220, 240, 0.45) 25%,
-                rgba(235, 225, 248, 0.45) 50%,
-                rgba(220, 235, 250, 0.4) 75%,
-                rgba(255, 240, 235, 0.45) 100%);
-            --bg-radials: 
-                radial-gradient(ellipse at 20% 20%, rgba(255, 220, 235, 0.35) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(220, 210, 245, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 40%, rgba(255, 245, 235, 0.25) 0%, transparent 60%),
-                radial-gradient(ellipse at 30% 75%, rgba(200, 220, 240, 0.3) 0%, transparent 50%);
-        }
-
-        /* dark mode overrides */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-body: #2a1a24;
-                --text-heading: #f0dde5;
-                --text-body: #d8ccd4;
-                --text-muted: #d8ccd4;
-                --text-footer: #b0a0a8;
-                
-                --card-bg: rgba(30, 22, 28, 0.55);
-                --card-border: rgba(255, 255, 255, 0.1);
-                --card-hover-bg: rgba(35, 26, 32, 0.62);
-                --card-hover-border: rgba(220, 170, 190, 0.35);
-                --btn-bg: linear-gradient(135deg, #3a2530, #30202a);
-                --btn-text: #e8d4dc;
-                --btn-border: rgba(180, 140, 155, 0.35);
-                --btn-icon-bg: linear-gradient(135deg, #f0a8ba, #d890a5);
-                
-                --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.2);
-                --shadow-card-hover: 0 10px 36px rgba(180, 130, 160, 0.28);
-                --glow-title: radial-gradient(ellipse, rgba(200, 150, 170, 0.25) 0%, transparent 70%);
-                --highlight-bg: linear-gradient(180deg, transparent 60%, rgba(200, 150, 170, 0.3) 60%);
-                
-                --bg-overlay: linear-gradient(160deg,
-                    rgba(40, 25, 35, 0.5) 0%,
-                    rgba(35, 25, 40, 0.45) 25%,
-                    rgba(30, 28, 42, 0.45) 50%,
-                    rgba(25, 30, 38, 0.4) 75%,
-                    rgba(35, 25, 32, 0.45) 100%);
-                --bg-radials: 
-                    radial-gradient(ellipse at 20% 20%, rgba(180, 130, 150, 0.25) 0%, transparent 50%),
-                    radial-gradient(ellipse at 80% 70%, rgba(140, 130, 170, 0.25) 0%, transparent 50%),
-                    radial-gradient(ellipse at 50% 40%, rgba(160, 140, 150, 0.2) 0%, transparent 60%),
-                    radial-gradient(ellipse at 30% 75%, rgba(130, 140, 160, 0.2) 0%, transparent 50%);
-            }
-        }
-
-        /* base styles */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        html { scroll-behavior: smooth; height: 100%; }
-        
-        body {
-            min-height: 100%;
-            font-family: 'Noto Serif SC', 'Source Han Serif CN', serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow-x: hidden;
-            background: url('examples/background.jpg') center/cover no-repeat, var(--bg-body);
-            background-attachment: fixed;
-            padding: 20px;
-            color: var(--text-body);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* background overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            background: var(--bg-overlay), var(--bg-radials);
-            backdrop-filter: blur(1px);
-            -webkit-backdrop-filter: blur(1px);
-        }
-
-        /* canvas */
-        #sakura-canvas {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.85;
-        }
-
-        /* layout */
-        .main-container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 680px;
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-container);
-            padding: 10px;
-        }
-
-        /* card */
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: var(--space-card-inner);
-            box-shadow: var(--shadow-card);
-            border: 1.5px solid var(--card-border);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1.5px;
-            background: linear-gradient(90deg, transparent, var(--color-primary) 50%, transparent);
-            opacity: 0.7;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-card-hover);
-            border-color: var(--card-hover-border);
-            transform: translateY(-3px);
-            background: var(--card-hover-bg);
-        }
-
-        /* hero area */
-        .hero-section { padding: 18px 10px 8px; position: relative; text-align: center; }
-        
-        .hero-decor {
-            display: inline-block;
-            position: relative;
-            padding: 8px 28px;
-        }
-
-        .hero-decor::before, .hero-decor::after {
-            content: '🌸';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.6rem;
-            animation: floatPetal 3s ease-in-out infinite;
-            opacity: 0.8;
-        }
-        .hero-decor::before { left: -8px; }
-        .hero-decor::after { right: -8px; animation-delay: 1.5s; }
-
-        .main-title {
-            font-size: clamp(2.4rem, 5.5vw, 3.4rem);
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            color: var(--text-heading);
-            line-height: 1.6;
-            text-shadow: 0 1px 3px rgba(255, 200, 210, 0.5);
-            position: relative;
-            display: inline-block;
-        }
-
-        .title-glow {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 130%; height: 70%;
-            background: var(--glow-title);
-            pointer-events: none;
-            z-index: -1;
-            border-radius: 50%;
-            filter: blur(10px);
-            animation: glowPulse 4s ease-in-out infinite;
-        }
-
-        .main-title rt {
-            font-size: 0.38em;
-            font-weight: 400;
-            color: var(--color-primary-deep);
-            opacity: 0.9;
-            transform: translateY(-0.15em);
-        }
-
-        /* quote text */
-        .quote-text {
-            font-size: clamp(1.05rem, 2.2vw, 1.25rem);
-            line-height: 1.9;
-            color: var(--text-muted);
-            letter-spacing: 0.04em;
-            font-style: italic;
-            position: relative;
-            display: inline-block;
-        }
-        .quote-text::after {
-            content: '';
-            position: absolute;
-            bottom: -2px; left: 10%;
-            width: 80%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(200, 160, 180, 0.5), transparent);
-        }
-        .quote-icon {
-            display: inline-block;
-            font-size: 2.4rem;
-            font-style: italic;
-            color: var(--color-primary-deep);
-            opacity: 0.5;
-            animation: gentleBounce 2.5s ease-in-out infinite;
-        }
-
-        /* about */
-        .about-text {
-            font-size: clamp(1rem, 2vw, 1.15rem);
-            color: var(--text-muted);
-            line-height: 2;
-            letter-spacing: 0.05em;
-        }
-        .highlight {
-            display: inline-block;
-            background: var(--highlight-bg);
-            padding: 0 4px;
-            border-radius: 2px;
-            transition: background 0.3s;
-        }
-        .highlight:hover { background: linear-gradient(180deg, transparent 55%, rgba(255, 180, 200, 0.6) 55%); }
-        
-        .separator {
-            display: inline-block;
-            margin: 0 6px;
-            color: var(--color-primary-deep);
-            opacity: 0.6;
-            font-size: 0.7em;
-            animation: gentleBounce 3s ease-in-out infinite;
-        }
-        .separator:nth-child(2) { animation-delay: 0.5s; }
-        .separator:nth-child(4) { animation-delay: 1s; }
-        .separator:nth-child(6) { animation-delay: 1.5s; }
-
-        /* botton, link */
-        .link-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            letter-spacing: 0.06em;
-            margin-bottom: 10px;
-            margin-top: 10px;
-            opacity: 0.8;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 13px 26px;
-            background: var(--btn-bg);
-            border-radius: var(--radius-pill);
-            text-decoration: none;
-            color: var(--btn-text);
-            font-weight: 600;
-            font-size: 1.05rem;
-            letter-spacing: 0.05em;
-            border: 1.5px solid var(--btn-border);
-            transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
-            box-shadow: 0 4px 16px rgba(180, 140, 160, 0.2);
-            position: relative;
-            overflow: hidden;
-            min-height: 48px;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 8px 28px rgba(180, 130, 160, 0.35);
-            border-color: var(--card-hover-border);
-        }
-        .btn-primary:active { transform: scale(0.97); transition: all 0.15s; }
-        .btn-primary:focus-visible {
-            outline: 2px solid var(--color-primary-deep);
-            outline-offset: 3px;
-        }
-
-        .btn-icon {
-            width: auto;
-            min-width: 26px;
-            height: 26px;
-            border-radius: 9999px;
-            padding: 0 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            background: var(--btn-icon-bg);
-            font-size: 0.85rem;
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(200, 150, 170, 0.4);
-            transition: all 0.35s;
-        }
-        .btn-primary:hover .btn-icon {
-            box-shadow: 0 3px 12px rgba(200, 130, 160, 0.55);
-        }
-        .btn-arrow {
-            transition: transform 0.35s;
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-        .btn-primary:hover .btn-arrow { transform: translateX(3px); opacity: 1; }
-
-        /* footer */
-        .footer-card {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 4px;
-            padding: 16px 20px;
-            font-size: 0.82rem;
-            color: var(--text-footer);
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(10px);
-            line-height: 1.8;
-        }
-        @media (prefers-color-scheme: dark) {
-            .footer-card { background: rgba(25, 18, 22, 0.4); border-color: rgba(255,255,255,0.08); }
-        }
-        .footer-decor {
-            display: inline-block;
-            margin: 0 5px;
-            font-size: 0.7rem;
-            opacity: 0.6;
-            animation: gentleBounce 3.5s ease-in-out infinite;
-        }
-        #weight-font { font-weight: 900; }
-
-        /* animations accessibility */
-        @keyframes floatPetal {
-            0%, 100% { transform: translateY(-50%) translateY(0px) rotate(0deg); }
-            25% { transform: translateY(-50%) translateY(-8px) rotate(5deg); }
-            50% { transform: translateY(-50%) translateY(-3px) rotate(-3deg); }
-            75% { transform: translateY(-50%) translateY(-10px) rotate(2deg); }
-        }
-        @keyframes glowPulse {
-            0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
-        }
-        @keyframes gentleBounce {
-            0%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-7px); }
-            60% { transform: translateY(-2px); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            .card:hover, .btn-primary:hover { transform: none; }
-        }
-
-        /* responsive breakpoints */
-        @media (max-width: 600px) {
-            .main-container { gap: 16px; padding: 5px; }
-            .card { padding: 16px 18px; border-radius: var(--radius-md); }
-            .hero-decor::before, .hero-decor::after { font-size: 1.2rem; }
-            .hero-decor::before { left: -2px; }
-            .hero-decor::after { right: -2px; }
-            .main-title { font-size: 2rem; }
-            .main-title rt { font-size: 0.35em; }
-            .btn-primary { padding: 10px 20px; font-size: 0.95rem; gap: 6px; }
-            .btn-icon { width: 22px; height: 22px; font-size: 0.7rem; }
-            .quote-text { font-size: 0.95rem; line-height: 1.75; }
-            .about-text { font-size: 0.9rem; line-height: 1.8; }
-            .footer-card { font-size: 0.72rem; padding: 12px 14px; }
-        }
-
-        @media (max-width: 380px) {
-            .main-title { font-size: 1.6rem; letter-spacing: 0.04em; }
-            .main-title rt { font-size: 0.32em; }
-            .card { padding: 12px 14px; border-radius: 14px; }
-            .hero-decor::before, .hero-decor::after { display: none; }
-            .btn-primary { padding: 8px 16px; font-size: 0.85rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <canvas id="sakura-canvas" aria-hidden="true"></canvas>
 
@@ -463,11 +38,8 @@
 
         <article class="card">
             <p class="link-label">访问我的Bangumi追番记录</p>
-            <a href="https://bangumi.tv/user/anontokyo" 
-               class="btn-primary" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="访问我的Bangumi主页（在新标签页中打开）">
+            <a href="https://bangumi.tv/user/anontokyo" class="btn-primary" rel="noopener noreferrer"
+                aria-label="访问我的Bangumi主页">
                 <span class="btn-icon" aria-hidden="true">Bangumi</span>
                 <span>我的 Bangumi</span>
                 <span class="btn-arrow" aria-hidden="true">→</span>
@@ -476,11 +48,8 @@
 
         <article class="card">
             <p class="link-label">访问我的追番资源</p>
-            <a href="https://drive.07210000.xyz:7210" 
-               class="btn-primary" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="访问我的番剧资源（在新标签页中打开）">
+            <a href="jkwuxw.html" class="btn-primary" target="_blank" rel="noopener noreferrer"
+                aria-label="访问我的番剧资源（在新标签页中打开）">
                 <span class="btn-icon" aria-hidden="true">Anime</span>
                 <span>我的追番资源</span>
                 <span class="btn-arrow" aria-hidden="true">→</span>
@@ -501,13 +70,13 @@
 
     <script>
         /*sakura canvas animation*/
-        (function() {
+        (function () {
             const yearEl = document.getElementById('year');
             if (yearEl) yearEl.textContent = new Date().getFullYear();
 
             const canvas = document.getElementById('sakura-canvas');
             if (!canvas) return;
-            
+
             const ctx = canvas.getContext('2d');
             let width, height;
             const petals = [];
@@ -631,4 +200,5 @@
         })();
     </script>
 </body>
+
 </html>
