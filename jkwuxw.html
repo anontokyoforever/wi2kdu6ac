@@ -235,30 +235,55 @@
                 });
             }
 
-            const sdi2w32ux = 'LmtzaWRub25h';
-            const kol9xx2fo = 'MDEyNzp6eXguMDAwMDEyNzAuZXZpcmQvLzpzcHR0aA==';
+            const PAYLOAD = {
+                salt: "khRomywFXtsvqXHoIuCguw==",
+                iv:   "A+FPZ1aX2SoLT+gp",
+                data: "HwT2LnEjaKlCOi8k54jz477AUKcuEMnmka6msC2Xe9Od+k8VEzhv4/KHLMCu8w=="
+            };
 
-            function io09j23ak(obf) {
-                const reversed = atob(obf);
-                return reversed.split('').reverse().join('');
+            async function unlock(password) {
+                const enc = new TextEncoder();
+                const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+                try {
+                    const keyMaterial = await crypto.subtle.importKey(
+                        "raw", enc.encode(password), "PBKDF2", false, ["deriveKey"]
+                    );
+                    const key = await crypto.subtle.deriveKey(
+                        { name: "PBKDF2", salt: b64d(PAYLOAD.salt), iterations: 600000, hash: "SHA-256" },
+                        keyMaterial,
+                        { name: "AES-GCM", length: 256 },
+                        false, ["decrypt"]
+                    );
+                    const plain = await crypto.subtle.decrypt(
+                        { name: "AES-GCM", iv: b64d(PAYLOAD.iv) },
+                        key,
+                        b64d(PAYLOAD.data)
+                    );
+                    return new TextDecoder().decode(plain);
+                } catch {
+                    return null;
+                }
             }
 
-            const uyr2ydj = io09j23ak(sdi2w32ux);
-            const kji9js5fh = io09j23ak(kol9xx2fo);
-
-            const pwdInput = document.getElementById('passwordInput');
-            const confirmBtn = document.getElementById('confirmBtn');
-            const backBtn = document.getElementById('backBtn');
-
-            function handleConfirm() {
-                if (pwdInput.value === uyr2ydj) {
-                    window.location.href = kji9js5fh;
+            async function handleConfirm() {
+                const btn = confirmBtn;
+                btn.disabled = true;
+                btn.textContent = "验证中...";
+                const target = await unlock(pwdInput.value);
+                btn.disabled = false;
+                btn.textContent = "确认访问";
+                if (target) {
+                    window.location.href = target;
                 } else {
                     alert('密码错误');
                     pwdInput.value = '';
                     pwdInput.focus();
                 }
             }
+
+            const pwdInput = document.getElementById('passwordInput');
+            const confirmBtn = document.getElementById('confirmBtn');
+            const backBtn = document.getElementById('backBtn');
 
             function goBack() {
                 window.location.href = 'index.html';
